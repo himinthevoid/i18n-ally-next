@@ -16,11 +16,14 @@ export default class LibreTranslate extends TranslateEngine {
     if (Config.libreTranslateApiRoot)
       apiRoot = Config.libreTranslateApiRoot
 
+    const apiKey = Config.libreTranslateApiKey
+
     const response = await axios.post(`${apiRoot}/translate`, {
       q: options.text,
       source: from,
       target: to,
       format: 'html',
+      ...(apiKey ? { api_key: apiKey } : {}),
     }, {
       headers: {
         'Content-Type': 'application/json',
